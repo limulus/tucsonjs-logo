@@ -1,0 +1,11 @@
+{
+  "name": "tucsonjs-logo",
+  "version": "0.0.0",
+  "description": "Logo for Tucson JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric McCarthy <eric@limulus.net> (http://www.limulus.net/)",
+  "license": "MIT"
+}
