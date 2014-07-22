@@ -16,32 +16,45 @@ var SVGElement = function (name) {
     this._svgElement = document.createElementNS("http://www.w3.org/2000/svg", name)
 }
 
-SVGElement.prototype.setCoords = function (x, y) {
-    this._svgElement.setAttribute("x", x)
-    this._svgElement.setAttribute("y", y)
-}
-
 SVGElement.prototype.rawSVGElement = function () {
     return this._svgElement
+}
+
+SVGElement.prototype.name = function () {
+    return this.rawSVGElement().tagName.toLowerCase()
+}
+
+SVGElement.prototype.setCoords = function (x, y) {
+    var xAttrib = "x", yAttrib = "y"
+
+    switch (this.name()) {
+        case "circle":
+            xAttrib = "cx"
+            yAttrib = "cy"
+            break
+    }
+
+    this.rawSVGElement().setAttribute(xAttrib, x)
+    this.rawSVGElement().setAttribute(yAttrib, y)
 }
 
 
 var SVGRoot = function (width, height) {
     SVGElement.call(this, "svg")
-    this._svgElement.style.width = width + "px"
-    this._svgElement.style.height = height + "px"
+    this.rawSVGElement().style.width = width + "px"
+    this.rawSVGElement().style.height = height + "px"
 }
 SVGRoot.prototype = Object.create(SVGElement.prototype)
 SVGRoot.prototype.constructor = SVGRoot
 
 SVGRoot.prototype.addToDocumentBodyWithId = function (id) {
-    this._svgElement.setAttribute("id", id)
-    document.body.appendChild(this._svgElement)
+    this.rawSVGElement().setAttribute("id", id)
+    document.body.appendChild(this.rawSVGElement())
 }
 
 SVGRoot.prototype.addAt = function (svgObj, x, y) {
     svgObj.setCoords(x, y)
-    this._svgElement.appendChild(svgObj.rawSVGElement())
+    this.rawSVGElement().appendChild(svgObj.rawSVGElement())
 }
 
 
@@ -53,18 +66,18 @@ SVGShape.prototype = Object.create(SVGElement.prototype)
 SVGShape.prototype.constructor = SVGShape
 
 SVGShape.prototype.setStrokeColor = function (color) {
-    this._svgElement.style.stroke = color
+    this.rawSVGElement().style.stroke = color
 }
 
 SVGShape.prototype.setStrokeWidth = function (width) {
-    this._svgElement.style.strokeWidth = width
+    this.rawSVGElement().style.strokeWidth = width
 }
 
 
 var SVGRect = function (width, height) {
     SVGShape.call(this, "rect")
-    this._svgElement.setAttribute("width", width)
-    this._svgElement.setAttribute("height", height)
+    this.rawSVGElement().setAttribute("width", width)
+    this.rawSVGElement().setAttribute("height", height)
 }
 SVGRect.prototype = Object.create(SVGShape.prototype)
 SVGRect.prototype.constructor = SVGRect
