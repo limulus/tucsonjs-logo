@@ -9,19 +9,18 @@ window.addEventListener("DOMContentLoaded", function () {
     var svgRoot = new SVGRoot(400, 400)
     svgRoot.addAt(rect, 100, 100)
     svgRoot.addToDocumentBodyWithId("logo")
+    svgRoot.setPreserveAspectRatio("none")
     svgRoot.setViewBox("0 0 1500 1500")
 
     svgRoot.observe("click", function (e) {
         // rect.setCoords(e.position.x, e.position.y)
-        console.log("click!", e.positionRelativeToViewport())
+        console.log("click!", e.positionRelativeToViewport(), e.rawEventObj())
     })
 })
 
 
-var svgNS = "http://www.w3.org/2000/svg"
-
 var SVGElement = function (name) {
-    this._svgElement = document.createElementNS(svgNS, name)
+    this._svgElement = document.createElementNS("http://www.w3.org/2000/svg", name)
 }
 
 SVGElement.prototype.rawSVGElement = function () {
@@ -81,9 +80,9 @@ SVGEvent.prototype.positionRelativeToViewport = function () {
 
 var SVGRoot = function (width, height) {
     SVGElement.call(this, "svg")
-    this.rawSVGElement().setAttributeNS(svgNS, "version", "1.1")
-    this.rawSVGElement().setAttributeNS(svgNS, "width", width + "px")
-    this.rawSVGElement().setAttributeNS(svgNS, "height", height + "px")
+    this.rawSVGElement().setAttribute("version", "1.1")
+    this.rawSVGElement().setAttribute("width", width + "px")
+    this.rawSVGElement().setAttribute("height", height + "px")
 }
 SVGRoot.prototype = Object.create(SVGElement.prototype)
 SVGRoot.prototype.constructor = SVGRoot
@@ -99,7 +98,11 @@ SVGRoot.prototype.addAt = function (svgObj, x, y) {
 }
 
 SVGRoot.prototype.setViewBox = function (val) {
-    this.rawSVGElement().setAttributeNS(svgNS, "viewBox", val)
+    this.rawSVGElement().setAttribute("viewBox", val)
+}
+
+SVGRoot.prototype.setPreserveAspectRatio = function (val) {
+    this.rawSVGElement().setAttribute("preserveAspectRatio", val)
 }
 
 
