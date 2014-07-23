@@ -1,6 +1,7 @@
 "use strict"
 
 var SVGElement = require("./SVGElement.js")
+  , inherits = require("util").inherits
 
 var SVGRoot = module.exports = function (width, height) {
     SVGElement.call(this, "svg")
@@ -8,8 +9,7 @@ var SVGRoot = module.exports = function (width, height) {
     this.rawSVGElement().setAttribute("width", width + "px")
     this.rawSVGElement().setAttribute("height", height + "px")
 }
-SVGRoot.prototype = Object.create(SVGElement.prototype)
-SVGRoot.prototype.constructor = SVGRoot
+inherits(SVGRoot, SVGElement)
 
 SVGRoot.prototype.addToDocumentBodyWithId = function (id) {
     this.rawSVGElement().setAttribute("id", id)
