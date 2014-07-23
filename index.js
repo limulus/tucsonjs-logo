@@ -17,5 +17,5 @@ window.addEventListener("DOMContentLoaded", function () {
         // rect.setCoords(e.position.x, e.position.y)
         console.log("click!", e.positionRelativeToViewport(), e.rawEventObj())
     })
-})
+}, false)
 
