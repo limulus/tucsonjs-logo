@@ -9,11 +9,19 @@ window.addEventListener("DOMContentLoaded", function () {
     var svgRoot = new SVGRoot(400, 400)
     svgRoot.addAt(rect, 100, 100)
     svgRoot.addToDocumentBodyWithId("logo")
+    svgRoot.setViewBox("0 0 1500 1500")
+
+    svgRoot.observe("click", function (e) {
+        // rect.setCoords(e.position.x, e.position.y)
+        console.log("click!", e.positionRelativeToViewport())
+    })
 })
 
 
+var svgNS = "http://www.w3.org/2000/svg"
+
 var SVGElement = function (name) {
-    this._svgElement = document.createElementNS("http://www.w3.org/2000/svg", name)
+    this._svgElement = document.createElementNS(svgNS, name)
 }
 
 SVGElement.prototype.rawSVGElement = function () {
@@ -38,11 +46,44 @@ SVGElement.prototype.setCoords = function (x, y) {
     this.rawSVGElement().setAttribute(yAttrib, y)
 }
 
+SVGElement.prototype.observe = function (eventName, handler) {
+    this.rawSVGElement().addEventListener(eventName, function (e) {
+        handler(new SVGEvent(e))
+    }, false)
+}
+
+
+var SVGEvent = function (e) {
+    this.type = e.type
+    this._eventObj = e
+}
+
+SVGEvent.prototype.rawEventObj = function () {
+    return this._eventObj
+}
+
+SVGEvent.prototype.positionRelativeToViewport = function () {
+    var svgViewportElement = this.rawEventObj().target.viewportElement || this.rawEventObj().target
+      , point = svgViewportElement.createSVGPoint()
+      , svgCTM = svgViewportElement.getScreenCTM()
+      , svgViewportBoundingBox = svgViewportElement.getBoundingClientRect()
+      , svgViewportOffsetX = svgViewportBoundingBox.left
+      , svgViewportOffsetY = svgViewportBoundingBox.top
+      , clientX = this.rawEventObj().clientX - svgViewportOffsetX
+      , clientY = this.rawEventObj().clientY - svgViewportOffsetY
+
+    point.x = clientX
+    point.y = clientY
+
+    return point.matrixTransform(svgCTM.inverse())
+}
+
 
 var SVGRoot = function (width, height) {
     SVGElement.call(this, "svg")
-    this.rawSVGElement().style.width = width + "px"
-    this.rawSVGElement().style.height = height + "px"
+    this.rawSVGElement().setAttributeNS(svgNS, "version", "1.1")
+    this.rawSVGElement().setAttributeNS(svgNS, "width", width + "px")
+    this.rawSVGElement().setAttributeNS(svgNS, "height", height + "px")
 }
 SVGRoot.prototype = Object.create(SVGElement.prototype)
 SVGRoot.prototype.constructor = SVGRoot
@@ -55,6 +96,10 @@ SVGRoot.prototype.addToDocumentBodyWithId = function (id) {
 SVGRoot.prototype.addAt = function (svgObj, x, y) {
     svgObj.setCoords(x, y)
     this.rawSVGElement().appendChild(svgObj.rawSVGElement())
+}
+
+SVGRoot.prototype.setViewBox = function (val) {
+    this.rawSVGElement().setAttributeNS(svgNS, "viewBox", val)
 }
 
 
