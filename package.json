@@ -9,5 +9,8 @@
   "author": "Eric McCarthy <eric@limulus.net> (http://www.limulus.net/)",
   "license": "MIT",
   "devDependencies": {},
-  "private": true
+  "private": true,
+  "dependencies": {
+    "beefy": "^2.1.0"
+  }
 }
