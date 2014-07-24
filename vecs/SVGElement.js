@@ -15,8 +15,15 @@ SVGElement.prototype.name = function () {
 }
 
 SVGElement.prototype.setCoords = function (x, y) {
-    var xAttrib = "x", yAttrib = "y"
+    // Also accept SVGPoint as the sole parameter.
+    if (x instanceof SVGPoint) {
+        y = x.y
+        x = x.x
+    }
 
+    // Determine which attributes we need to set. It's
+    // different for different SVG elements like circle.
+    var xAttrib = "x", yAttrib = "y"
     switch (this.name()) {
         case "circle":
             xAttrib = "cx"
