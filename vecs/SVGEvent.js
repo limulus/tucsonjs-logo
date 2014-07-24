@@ -10,17 +10,24 @@ SVGEvent.prototype.rawEventObj = function () {
 }
 
 SVGEvent.prototype.positionRelativeToViewport = function () {
-    var svgViewportElement = this.rawEventObj().target.viewportElement || this.rawEventObj().target
+    var svgViewportElement = this.viewportElementForTarget()
       , point = svgViewportElement.createSVGPoint()
       , svgCTM = svgViewportElement.getScreenCTM()
-      , svgViewportBoundingBox = svgViewportElement.getBoundingClientRect()
-      , svgViewportOffsetX = svgViewportBoundingBox.left
-      , svgViewportOffsetY = svgViewportBoundingBox.top
-      , clientX = this.rawEventObj().clientX - svgViewportOffsetX
-      , clientY = this.rawEventObj().clientY - svgViewportOffsetY
 
-    point.x = clientX
-    point.y = clientY
+    point.x = this.rawEventObj().clientX
+    point.y = this.rawEventObj().clientY
 
     return point.matrixTransform(svgCTM.inverse())
+}
+
+SVGEvent.prototype.viewportElementForTarget = function () {
+    var parentViewportElement = this.rawEventObj().target.viewportElement
+
+    if (parentViewportElement) {
+        return parentViewportElement
+    }
+    else {
+        // If there was no parent viewport element, it must be the target.
+        return this.rawEventObj().target
+    }
 }
