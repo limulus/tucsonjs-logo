@@ -1,6 +1,6 @@
 "use strict"
 
-var vecs = require("./vecs/index.js")
+var vecs = require("./vecs")
 
 window.addEventListener("DOMContentLoaded", function () {
     var rect = new vecs.SVGRect(100, 100)
