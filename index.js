@@ -61,9 +61,18 @@ CrepuscularRays.prototype.draw = function () {
         this._rayElements.push(triangle)
         this._svgRoot.addAt(triangle, i * 50, i * 50)
 
+        var viewportDimensions = this._svgRoot.viewportDimensions()
+          , radius = (Math.max(viewportDimensions.width, viewportDimensions.height) + 2)
+          , radians1 = 2 * Math.PI * i / this._rayCount
+          , x1 = (viewportDimensions.width  / 2) + (radius * Math.cos(radians1))
+          , y1 = (viewportDimensions.height / 2) + (radius * Math.sin(radians1))
+          , radians2 = 2 * Math.PI  * (i + 1) / this._rayCount
+          , x2 = (viewportDimensions.width  / 2) + (radius * Math.cos(radians2))
+          , y2 = (viewportDimensions.height / 2) + (radius * Math.sin(radians2))
+
         triangle.addPoint(this._rayOriginationPoint.x, this._rayOriginationPoint.y)
-        triangle.addPoint(i*100, 0)
-        triangle.addPoint(i*100 + 100, 0)
+        triangle.addPoint(x1, y1)
+        triangle.addPoint(x2, y2)
 
         var color = this._colors[i % this._colors.length]
         triangle.setFillColor(color)

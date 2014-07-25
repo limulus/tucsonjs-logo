@@ -26,6 +26,10 @@ SVGRoot.prototype.setViewBox = function (val) {
     this.rawSVGElement().setAttribute("viewBox", val)
 }
 
+SVGRoot.prototype.viewportDimensions = function () {
+    return this.rawSVGElement().viewBox.baseVal
+}
+
 SVGRoot.prototype.setPreserveAspectRatio = function (val) {
     this.rawSVGElement().setAttribute("preserveAspectRatio", val)
 }
@@ -33,14 +37,17 @@ SVGRoot.prototype.setPreserveAspectRatio = function (val) {
 SVGRoot.prototype.observeTouchGesture = function (eventHandler) {
     var _handleEvent = function (e) {
         e.preventDefault()
-        e.stopPropagation()
         eventHandler(new SVGEvent(e))
     }
 
-    this.rawSVGElement().addEventListener("mousedown", _handleEvent, false)
-    this.rawSVGElement().addEventListener("mousemove", _handleEvent, false)
-    this.rawSVGElement().addEventListener("mouseup", _handleEvent, false)
-    this.rawSVGElement().addEventListener("touchmove", _handleEvent, false)
-    this.rawSVGElement().addEventListener("touchdown", _handleEvent, false)
-    this.rawSVGElement().addEventListener("touchup", _handleEvent, false)
+    if (document.ontouchstart === undefined) {
+        this.rawSVGElement().addEventListener("mousedown", _handleEvent, false)
+        this.rawSVGElement().addEventListener("mousemove", _handleEvent, false)
+        this.rawSVGElement().addEventListener("mouseup", _handleEvent, false)
+    }
+    else {
+        this.rawSVGElement().addEventListener("touchstart", _handleEvent, false)
+        this.rawSVGElement().addEventListener("touchmove", _handleEvent, false)
+        this.rawSVGElement().addEventListener("touchend", _handleEvent, false)
+    }
 }
