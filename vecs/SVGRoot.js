@@ -29,4 +29,3 @@ SVGRoot.prototype.setPreserveAspectRatio = function (val) {
     this.rawSVGElement().setAttribute("preserveAspectRatio", val)
 }
 
-

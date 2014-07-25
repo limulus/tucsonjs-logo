@@ -15,3 +15,7 @@ SVGShape.prototype.setStrokeColor = function (color) {
 SVGShape.prototype.setStrokeWidth = function (width) {
     this.rawSVGElement().style.strokeWidth = width
 }
+
+SVGShape.prototype.setFillColor = function (color) {
+    this.rawSVGElement().setAttribute("fill", color)
+}

@@ -41,4 +41,29 @@ SVGElement.prototype.observe = function (eventName, handler) {
     }, false)
 }
 
+var _svgRootElemForPointCreation
+SVGElement.prototype.createPoint = function (x, y) {
+    var svgRootElement
+    if (this.rawSVGElement().viewportElement || this.rawSVGElement() instanceof SVGSVGElement) {
+        svgRootElement = this.rawSVGElement().viewportElement || this.rawSVGElement()
+    }
+    else {
+        if (_svgRootElemForPointCreation === undefined) {
+            _svgRootElemForPointCreation = (new SVGElement("svg")).rawSVGElement()
+        }
+        svgRootElement = _svgRootElemForPointCreation
+    }
+
+    var point = svgRootElement.createSVGPoint()
+    if (x !== undefined && y !== undefined) {
+        point.x = x
+        point.y = y
+    }
+
+    return point
+}
+
+SVGElement.prototype.removeFromDocument = function () {
+    this.rawSVGElement().remove()
+}
 
