@@ -14,8 +14,15 @@ SVGEvent.prototype.positionRelativeToViewport = function () {
       , point = svgViewportElement.createSVGPoint()
       , svgCTM = svgViewportElement.getScreenCTM()
 
-    point.x = this.rawEventObj().clientX
-    point.y = this.rawEventObj().clientY
+    if (window.MouseEvent && this.rawEventObj() instanceof MouseEvent) {
+        point.x = this.rawEventObj().clientX
+        point.y = this.rawEventObj().clientY
+    }
+    else if (window.TouchEvent && this.rawEventObj() instanceof TouchEvent) {
+        var touches = this.rawEventObj().touches
+        point.x = touches[touches.length - 1].clientX
+        point.y = touches[touches.length - 1].clientY
+    }
 
     return point.matrixTransform(svgCTM.inverse())
 }

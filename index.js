@@ -13,7 +13,7 @@ var CrepuscularRays = function () {
     this._svgRoot = new vecs.SVGRoot(500, 500)
     this._svgRoot.setViewBox("0 0 1000 1000")
     this._svgRoot.setPreserveAspectRatio("xMinYMin")
-    this._svgRoot.observe("mousemove", this._updateCenterPointFromEvent.bind(this))
+    this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this))
 
     this._rayOriginationPoint = this._svgRoot.createPoint(500, 500)
     this._colors = ["red", "yellow"]
