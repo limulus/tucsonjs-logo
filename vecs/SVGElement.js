@@ -66,4 +66,3 @@ SVGElement.prototype.createPoint = function (x, y) {
 SVGElement.prototype.removeFromDocument = function () {
     this.rawSVGElement().remove()
 }
-

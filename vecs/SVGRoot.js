@@ -15,6 +15,12 @@ var SVGRoot = module.exports = function (width, height) {
 }
 inherits(SVGRoot, SVGElement)
 
+SVGRoot.instanceFromRawElement = function (elem) {
+  var root = new SVGRoot(1, 1)
+  root._svgElement = elem
+  return root
+}
+
 SVGRoot.prototype.addToDocumentBodyWithId = function (id) {
     this.rawSVGElement().setAttribute("id", id)
     document.body.appendChild(this.rawSVGElement())

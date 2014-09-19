@@ -4,13 +4,14 @@
   "description": "Logo for Tucson JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/svg-playground/index.js"
   },
   "author": "Eric McCarthy <eric@limulus.net> (http://www.limulus.net/)",
   "license": "MIT",
   "devDependencies": {},
   "private": true,
   "dependencies": {
-    "beefy": "^2.1.0"
+    "svg-playground": "^1.0.0"
   }
 }

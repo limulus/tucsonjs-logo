@@ -1,16 +1,15 @@
 "use strict"
 
-var vecs = require("./vecs")
+var vecs = require("./vecs");
 
-window.addEventListener("DOMContentLoaded", function () {
-    var crepuscularRays = new CrepuscularRays()
-    crepuscularRays.svgRoot().addToDocumentBodyWithId("crepuscularRays")
-    crepuscularRays.draw()
-}, false)
+module.exports = function (svg) {
+    var root = vecs.SVGRoot.instanceFromRawElement(svg)
+    var cp = new CrepuscularRays(root)
+    cp.draw()
+}
 
-
-var CrepuscularRays = function () {
-    this._svgRoot = new vecs.SVGRoot(500, 500)
+var CrepuscularRays = function (svg) {
+    this._svgRoot = svg
     this._svgRoot.setViewBox("0 0 1000 1000")
     this._svgRoot.setPreserveAspectRatio("xMinYMin")
     this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this))
