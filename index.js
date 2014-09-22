@@ -1,7 +1,6 @@
 "use strict";
 
 var vecs = require("./vecs");
-var svg = require("svg-builder");
 var CrepuscularRays = require("./CrepuscularRays.js");
 
 module.exports = function (svgRoot) {
