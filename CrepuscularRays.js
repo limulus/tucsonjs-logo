@@ -4,7 +4,7 @@ var CrepuscularRays = module.exports = function (svg) {
   this._svgRoot = svg
   this._svgRoot.setViewBox("0 0 1000 1000")
   this._svgRoot.setPreserveAspectRatio("xMinYMin")
-  this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this))
+  // this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this))
 
   this._rayOriginationPoint = this._svgRoot.createPoint(500, 500)
   this._colors = ["red", "yellow"]
