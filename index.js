@@ -18,10 +18,10 @@ var MountainSilhouette = function (svgRoot) {
   // this._svgRoot.setPreserveAspectRatio("xMinYMin");
   this._svgRoot = svgRoot;
   
-  this._peaks = 5;
-  this._peakMax = 600;
-  this._valleyMin = 400;
-  this._color = "black";
+  this._peaks = 3;
+  this._peakMax = 560;
+  this._valleyMin = 640;
+  this._color = "#222222";
 };
 
 MountainSilhouette.prototype.draw = function () {
