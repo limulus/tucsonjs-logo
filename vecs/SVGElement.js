@@ -25,14 +25,20 @@ SVGElement.prototype.setCoords = function (x, y) {
   // different for different SVG elements like circle.
   var xAttrib = "x", yAttrib = "y"
   switch (this.name()) {
+    case "path":
+      this.setPathOrigin(x, y)
+      break
+
     case "circle":
       xAttrib = "cx"
       yAttrib = "cy"
+      // continue to default
+
+    default:
+      this.rawSVGElement().setAttribute(xAttrib, x)
+      this.rawSVGElement().setAttribute(yAttrib, y)
       break
   }
-
-  this.rawSVGElement().setAttribute(xAttrib, x)
-  this.rawSVGElement().setAttribute(yAttrib, y)
 }
 
 SVGElement.prototype.observe = function (eventName, handler) {
