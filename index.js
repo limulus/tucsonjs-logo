@@ -10,12 +10,35 @@ module.exports = function (svgRoot) {
   
   var ms = new MountainSilhouette(root);
   ms.draw();
+  
+  var cactus = new Saguaro(root);
+  cactus.draw();
 };
 
+
+var Saguaro = function (svgRoot) {
+  this._svgRoot = svgRoot;
+  
+  this._xPos = 800;
+  this._yPos = 350;
+  this._trunkWidth = 75;
+  this._color = "#758A65";
+};
+
+Saguaro.prototype.draw = function () {
+  var trunkRadius = this._trunkWidth / 2;
+  
+  var trunkCap = new vecs.SVGCircle(trunkRadius);
+  trunkCap.setFillColor(this._color);
+  this._svgRoot.addAt(trunkCap, this._xPos, this._yPos);
+  
+  var trunk = new vecs.SVGRect(this._trunkWidth, 1000);
+  trunk.setFillColor(this._color)
+  this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
+};
+
+
 var MountainSilhouette = function (svgRoot) {
-  // this._svgRoot = vecs.SVGRoot.instanceFromRawElement(svg);
-  // this._svgRoot.setViewBox("0 0 1000 1000");
-  // this._svgRoot.setPreserveAspectRatio("xMinYMin");
   this._svgRoot = svgRoot;
   
   this._peaks = 3;
