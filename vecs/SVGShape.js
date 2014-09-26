@@ -16,6 +16,10 @@ SVGShape.prototype.setStrokeWidth = function (width) {
   this.rawSVGElement().style.strokeWidth = width
 }
 
+SVGShape.prototype.setStrokeLinecap = function (type) {
+  this.rawSVGElement().setAttribute("stroke-linecap", type)
+}
+
 SVGShape.prototype.setFillColor = function (color) {
   this.rawSVGElement().setAttribute("fill", color)
 }
