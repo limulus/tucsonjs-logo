@@ -1,5 +1,3 @@
-"use strict";
-
 var vecs = require("./vecs");
 var CrepuscularRays = require("./CrepuscularRays.js");
 
@@ -19,8 +17,9 @@ module.exports = function (svgRoot) {
 var Saguaro = function (svgRoot) {
   this._svgRoot = svgRoot;
   
-  this._xPos = 800;
+  this._xPos = 700;
   this._yPos = 350;
+  this._armOffsetFromTop = 300;
   this._trunkWidth = 75;
   this._color = "#758A65";
 };
@@ -33,8 +32,22 @@ Saguaro.prototype.draw = function () {
   this._svgRoot.addAt(trunkCap, this._xPos, this._yPos);
   
   var trunk = new vecs.SVGRect(this._trunkWidth, 1000);
-  trunk.setFillColor(this._color)
+  trunk.setFillColor(this._color);
   this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
+  
+  var armYOffset = this._yPos + this._armOffsetFromTop;
+  var armHeight = 200;
+  var arm = new vecs.SVGPath();
+  arm.addQuadraticBezierCurve(
+    trunkRadius - 230, 0,
+    trunkRadius - 230, 0 - armHeight
+  );
+  arm.addLineSegment(0, -30);
+  arm.setFillColor("transparent");
+  arm.setStrokeWidth(this._trunkWidth);
+  arm.setStrokeColor(this._color);
+  arm.preventClose();
+  this._svgRoot.addAt(arm, this._xPos, armYOffset);
 };
 
 
