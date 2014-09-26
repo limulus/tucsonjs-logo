@@ -99,7 +99,7 @@ var CrepuscularRays = function (svg) {
   this._svgRoot = svg;
   // this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this));
 
-  this._rayOriginationPoint = this._svgRoot.createPoint(500, 500);
+  this._rayOriginationPoint = this._svgRoot.createPoint(500, 1000);
   this._colors = ["red", "yellow"];
   this._rayCount = 26;
   this._rayElements = [];
