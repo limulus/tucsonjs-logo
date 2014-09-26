@@ -17,10 +17,10 @@ module.exports = function (svgRoot) {
 var Saguaro = function (svgRoot) {
   this._svgRoot = svgRoot;
   
-  this._xPos = 700;
+  this._xPos = 750;
   this._yPos = 350;
   this._armOffsetFromTop = 300;
-  this._trunkWidth = 75;
+  this._trunkWidth = 60;
   this._color = "#758A65";
 };
 
@@ -35,19 +35,32 @@ Saguaro.prototype.draw = function () {
   trunk.setFillColor(this._color);
   this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
   
+  var leftArm = this._createArm(false);
   var armYOffset = this._yPos + this._armOffsetFromTop;
+  this._svgRoot.addAt(leftArm, this._xPos, armYOffset);
+  
+  var rightArm = this._createArm(true);
+  this._svgRoot.addAt(rightArm, this._xPos, armYOffset + 50);
+};
+
+Saguaro.prototype._createArm = function (flip) {
+  var trunkRadius = this._trunkWidth / 2;
+  var flipTrigger = flip ? -1 : 1;
+  
   var armHeight = 200;
   var arm = new vecs.SVGPath();
   arm.addQuadraticBezierCurve(
-    trunkRadius - 230, 0,
-    trunkRadius - 230, 0 - armHeight
+    trunkRadius*flipTrigger - 150*flipTrigger, 70,
+    trunkRadius*flipTrigger - 150*flipTrigger, 0 - armHeight
   );
   arm.addLineSegment(0, -30);
   arm.setFillColor("transparent");
   arm.setStrokeWidth(this._trunkWidth);
   arm.setStrokeColor(this._color);
+  arm.setStrokeLinecap("round");
   arm.preventClose();
-  this._svgRoot.addAt(arm, this._xPos, armYOffset);
+  
+  return arm;
 };
 
 
