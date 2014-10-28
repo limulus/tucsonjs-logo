@@ -1,4 +1,4 @@
-var vecs = require("./vecs");
+var vecs = require("vecs");
 
 module.exports = function (svgRoot) {
   var root = vecs.SVGRoot.instanceFromRawElement(svgRoot);

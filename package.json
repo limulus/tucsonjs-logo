@@ -12,6 +12,7 @@
   "devDependencies": {},
   "private": true,
   "dependencies": {
-    "svg-playground": "^1.0.0"
+    "svg-playground": "^1.0.0",
+    "vecs": "^1.0.0"
   }
 }
