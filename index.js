@@ -2,7 +2,7 @@ var vecs = require("vecs");
 
 module.exports = function (svgRoot) {
   var cactusColor = "#758A65";
-  
+
   var root = vecs.SVGRoot.instanceFromRawElement(svgRoot);
   root.setViewBox("0 0 1000 1000");
   root.setPreserveAspectRatio("xMinYMin");
@@ -13,61 +13,8 @@ module.exports = function (svgRoot) {
   var ms = new MountainSilhouette(root);
   ms.draw();
 
-  var cactus = new Saguaro(root, cactusColor);
-  cactus.draw();
-
   var logotext = new TucsonJSText(root, cactusColor);
   logotext.draw();
-};
-
-
-var Saguaro = function (svgRoot, color) {
-  this._svgRoot = svgRoot;
-
-  this._xPos = 220;
-  this._yPos = 350;
-  this._armOffsetFromTop = 300;
-  this._trunkWidth = 60;
-  this._color = color;
-};
-
-Saguaro.prototype.draw = function () {
-  var trunkRadius = this._trunkWidth / 2;
-
-  var trunkCap = new vecs.SVGCircle(trunkRadius);
-  trunkCap.setFillColor(this._color);
-  this._svgRoot.addAt(trunkCap, this._xPos, this._yPos);
-
-  var trunk = new vecs.SVGRect(this._trunkWidth, 1000);
-  trunk.setFillColor(this._color);
-  this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
-
-  var leftArm = this._createArm(false);
-  var armYOffset = this._yPos + this._armOffsetFromTop;
-  this._svgRoot.addAt(leftArm, this._xPos, armYOffset);
-
-  var rightArm = this._createArm(true);
-  this._svgRoot.addAt(rightArm, this._xPos, armYOffset + 50);
-};
-
-Saguaro.prototype._createArm = function (flip) {
-  var trunkRadius = this._trunkWidth / 2;
-  var flipTrigger = flip ? -1 : 1;
-
-  var armHeight = 200;
-  var arm = new vecs.SVGPath();
-  arm.addQuadraticBezierCurve(
-    trunkRadius*flipTrigger - 150*flipTrigger, 70,
-    trunkRadius*flipTrigger - 150*flipTrigger, 0 - armHeight
-  );
-  arm.addLineSegment(0, -30);
-  arm.setFillColor("transparent");
-  arm.setStrokeWidth(this._trunkWidth);
-  arm.setStrokeColor(this._color);
-  arm.setStrokeLinecap("round");
-  arm.preventClose();
-
-  return arm;
 };
 
 
@@ -75,8 +22,8 @@ var MountainSilhouette = function (svgRoot) {
   this._svgRoot = svgRoot;
 
   this._peaks = 3;
-  this._peakMax = 666;
-  this._valleyMin = 777;
+  this._peakMax = 500;
+  this._valleyMin = 666;
   this._color = "#222233";
 };
 
@@ -178,10 +125,14 @@ var TucsonJSText = function (svg, color) {
 };
 
 TucsonJSText.prototype.draw = function () {
+  var zoomedViewBox = "0 0 700 700";
+  var yVal = 740;
   var tucsonContainer = TucsonJSText.textContainerForPath(this._tucson, this._color);
-  this._svgRoot.addAt(tucsonContainer, 325, 830);
+  this._svgRoot.addAt(tucsonContainer, 35, yVal);
+  tucsonContainer.setViewBox(zoomedViewBox);
   var jsContainer = TucsonJSText.textContainerForPath(this._js, this._color);
-  this._svgRoot.addAt(jsContainer, 810, 830)
+  jsContainer.setViewBox(zoomedViewBox);
+  this._svgRoot.addAt(jsContainer, 725, yVal);
 };
 
 TucsonJSText.textContainerForPath = function (pathCommandString, fillColor) {
