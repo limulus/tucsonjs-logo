@@ -24,7 +24,7 @@ var MountainSilhouette = function (svgRoot) {
   this._peaks = 3;
   this._peakMax = 500;
   this._valleyMin = 666;
-  this._color = "#222233";
+  this._color = "#1E1529";
 };
 
 MountainSilhouette.prototype.draw = function () {
@@ -52,8 +52,8 @@ var CrepuscularRays = function (svg) {
   // this._svgRoot.observeTouchGesture(this._updateCenterPointFromEvent.bind(this));
 
   this._rayOriginationPoint = this._svgRoot.createPoint(500, 1000);
-  this._colors = ["red", "yellow"];
-  this._rayCount = 18;
+  this._colors = ["#F7941E", "#f7df1e"].reverse();
+  this._rayCount = 22;
   this._rayElements = [];
   this._needsRedraw = true;
 };
