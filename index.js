@@ -26,10 +26,11 @@ module.exports = function (svgRoot) {
 var Saguaro = function (svgRoot, color) {
   this._svgRoot = svgRoot;
 
-  this._xPos = 230;
+  this._xPos = 250;
   this._yPos = 150;
   this._armOffsetFromTop = 300;
-  this._trunkWidth = 60;
+  this._trunkWidth = 68;
+  this._armWidth = this._trunkWidth - 8;
   this._color = color;
 };
 
@@ -44,27 +45,27 @@ Saguaro.prototype.draw = function () {
   trunk.setFillColor(this._color);
   this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
 
-  var leftArm = this._createArm(false);
+  var leftArm = this._createArm(false, 180);
   var armYOffset = this._yPos + this._armOffsetFromTop;
   this._svgRoot.addAt(leftArm, this._xPos, armYOffset);
 
-  var rightArm = this._createArm(true);
+  var rightArm = this._createArm(true, 200);
   this._svgRoot.addAt(rightArm, this._xPos, armYOffset + 35);
 };
 
-Saguaro.prototype._createArm = function (flip) {
-  var trunkRadius = this._trunkWidth / 2;
+Saguaro.prototype._createArm = function (flip, armHeight) {
+  var armRadius = this._armWidth / 2;
+  var armHorizontalGrowth = 135;
   var flipTrigger = flip ? -1 : 1;
 
-  var armHeight = 200;
   var arm = new vecs.SVGPath();
   arm.addQuadraticBezierCurve(
-    trunkRadius*flipTrigger - 150*flipTrigger, 70,
-    trunkRadius*flipTrigger - 150*flipTrigger, 0 - armHeight
+    armRadius*flipTrigger - armHorizontalGrowth*flipTrigger, 60,
+    armRadius*flipTrigger - armHorizontalGrowth*flipTrigger, 0 - armHeight
   );
   arm.addLineSegment(0, -30);
   arm.setFillColor("transparent");
-  arm.setStrokeWidth(this._trunkWidth);
+  arm.setStrokeWidth(this._armWidth);
   arm.setStrokeColor(this._color);
   arm.setStrokeLinecap("round");
   arm.preventClose();
