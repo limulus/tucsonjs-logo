@@ -35,15 +35,14 @@ var Saguaro = function (svgRoot, color) {
 };
 
 Saguaro.prototype.draw = function () {
-  var trunkRadius = this._trunkWidth / 2;
-
-  var trunkCap = new vecs.SVGCircle(trunkRadius);
-  trunkCap.setFillColor(this._color);
-  this._svgRoot.addAt(trunkCap, this._xPos, this._yPos);
-
-  var trunk = new vecs.SVGRect(this._trunkWidth, 1000);
-  trunk.setFillColor(this._color);
-  this._svgRoot.addAt(trunk, this._xPos - trunkRadius, this._yPos);
+  var trunk = new vecs.SVGPath();
+  trunk.addLineSegment(0, 1000);
+  trunk.setFillColor("transparent");
+  trunk.setStrokeWidth(this._trunkWidth);
+  trunk.setStrokeColor(this._color);
+  trunk.setStrokeLinecap("round");
+  trunk.preventClose();
+  this._svgRoot.addAt(trunk, this._xPos, this._yPos);
 
   var leftArm = this._createArm(false, 180);
   var armYOffset = this._yPos + this._armOffsetFromTop;
