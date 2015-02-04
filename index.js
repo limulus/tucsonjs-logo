@@ -1,15 +1,15 @@
 var vecs = require("vecs");
 
 module.exports = function (svgRoot) {
-  var silhouetteColor = "#1E1529";
-  var colors = ["#F7941E", "#f7df1e"];
-  var cactusColor = "#758A65";
+  var silhouetteColor = "black";
+  var rayColors = ["#F7941E", "#f7df1e"];
+  var textColor = "#C00";
 
   var root = vecs.SVGRoot.instanceFromRawElement(svgRoot);
   root.setViewBox("0 0 1000 1000");
   root.setPreserveAspectRatio("xMinYMin");
 
-  var cp = new CrepuscularRays(root, colors);
+  var cp = new CrepuscularRays(root, rayColors);
   cp.draw();
 
   var cactus = new Saguaro(root, silhouetteColor);
@@ -18,7 +18,7 @@ module.exports = function (svgRoot) {
   var ms = new MountainSilhouette(root, silhouetteColor);
   ms.draw();
 
-  var logotext = new TucsonJSText(root, colors);
+  var logotext = new TucsonJSText(root, [textColor, textColor]);
   logotext.draw();
 };
 
