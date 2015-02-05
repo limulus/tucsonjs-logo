@@ -109,6 +109,7 @@ var CrepuscularRays = function (svg, colors) {
   this._rayOriginationPoint = this._svgRoot.createPoint(500, 1060);
   this._colors = colors.reverse();
   this._rayCount = 22;
+  this._overdraw = 0.5;
   this._rayElements = [];
   this._needsRedraw = true;
 };
@@ -157,7 +158,7 @@ CrepuscularRays.prototype.draw = function () {
       , radians1 = 2 * Math.PI * i / this._rayCount
       , x1 = (viewportDimensions.width  / 2) + (radius * Math.cos(radians1))
       , y1 = (viewportDimensions.height / 2) + (radius * Math.sin(radians1))
-      , radians2 = 2 * Math.PI  * (i + 1) / this._rayCount
+      , radians2 = (2 * Math.PI  * (i + 1) + this._overdraw) / this._rayCount
       , x2 = (viewportDimensions.width  / 2) + (radius * Math.cos(radians2))
       , y2 = (viewportDimensions.height / 2) + (radius * Math.sin(radians2));
 
