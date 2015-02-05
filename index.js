@@ -8,17 +8,20 @@ module.exports = function (svgRoot) {
   var root = vecs.SVGRoot.instanceFromRawElement(svgRoot);
   root.setViewBox("0 0 1000 1000");
   root.setPreserveAspectRatio("xMinYMin");
+  
+  var clippedDrawingArea = new vecs.SVGGroup();
+  root.add(clippedDrawingArea);
 
-  var cp = new CrepuscularRays(root, rayColors);
+  var cp = new CrepuscularRays(clippedDrawingArea, rayColors);
   cp.draw();
 
-  var cactus = new Saguaro(root, silhouetteColor);
+  var cactus = new Saguaro(clippedDrawingArea, silhouetteColor);
   cactus.draw();
 
-  var ms = new MountainSilhouette(root, silhouetteColor);
+  var ms = new MountainSilhouette(clippedDrawingArea, silhouetteColor);
   ms.draw();
 
-  var logotext = new TucsonJSText(root, [textColor, textColor]);
+  var logotext = new TucsonJSText(clippedDrawingArea, [textColor, textColor]);
   logotext.draw();
 };
 
