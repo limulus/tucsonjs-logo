@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/svg-playground/index.js"
+    "start": "./node_modules/svg-playground/index.js --open"
   },
   "author": "Eric McCarthy <eric@limulus.net> (http://www.limulus.net/)",
   "license": "MIT",
