@@ -9,7 +9,12 @@ module.exports = function (svgRoot) {
   root.setViewBox("0 0 1000 1000");
   root.setPreserveAspectRatio("xMinYMin");
   
+  var clip = new vecs.SVGClipPath();
+  clip.addAt(new vecs.SVGRect(1000, 1000), 0, 0);
+  root.addDefinition(clip, "fooot");
+  
   var clippedDrawingArea = new vecs.SVGGroup();
+  clippedDrawingArea.setClipPathId("fooot");
   root.add(clippedDrawingArea);
 
   var cp = new CrepuscularRays(clippedDrawingArea, rayColors);
