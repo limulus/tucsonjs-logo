@@ -13,6 +13,6 @@
   "private": true,
   "dependencies": {
     "svg-playground": "^1.1.2",
-    "vecs": "^1.2.0"
+    "vecs": "^1.3.0"
   }
 }
