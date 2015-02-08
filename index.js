@@ -1,5 +1,9 @@
 var vecs = require("vecs");
 
+// Ensure text is not too close to the border when drawing logo
+// for printing on stickers. Set to false otherwise.
+var fullbleed = false;
+
 module.exports = function (svgRoot) {
   var silhouetteColor = "black";
   var rayColors = ["#F7941E", "#f7df1e"];
@@ -200,7 +204,7 @@ var TucsonJSText = function (svg, colors) {
 TucsonJSText.prototype.draw = function (colors) {
   var viewportDimensions = this._svgRoot.viewportDimensions();
   
-  var zoomDivisor = 700;
+  var zoomDivisor = fullbleed ? 725 : 700;
   var zoomFactor = viewportDimensions.width / zoomDivisor;
   
   var gap = this._gap * zoomFactor;
