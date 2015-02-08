@@ -43,7 +43,7 @@ var Saguaro = function (svgRoot, color) {
 Saguaro.prototype.draw = function () {
   var trunk = new vecs.SVGPath();
   trunk.addLineSegment(0, 1000);
-  trunk.setFillColor("transparent");
+  trunk.setFillOpacity(0);
   trunk.setStrokeWidth(this._trunkWidth);
   trunk.setStrokeColor(this._color);
   trunk.setStrokeLinecap("round");
@@ -69,7 +69,7 @@ Saguaro.prototype._createArm = function (flip, armHeight) {
     armRadius*flipTrigger - armHorizontalGrowth*flipTrigger, 0 - armHeight
   );
   arm.addLineSegment(0, -30);
-  arm.setFillColor("transparent");
+  arm.setFillOpacity(0);
   arm.setStrokeWidth(this._armWidth);
   arm.setStrokeColor(this._color);
   arm.setStrokeLinecap("round");
