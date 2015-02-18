@@ -8,6 +8,14 @@
     "start": "svg-playground --open"
   },
   "author": "Eric McCarthy <eric@limulus.net> (http://www.limulus.net/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/limulus/tucsonjs-logo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/limulus/tucsonjs-logo/issues"
+  },
+  "homepage": "https://github.com/limulus/tucsonjs-logo",
   "license": "MIT",
   "devDependencies": {},
   "private": true,
